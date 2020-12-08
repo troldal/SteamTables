@@ -6,7 +6,6 @@ if (DOXYGEN_FOUND)
     set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
     set(DOXYGEN_SOURCE ${CMAKE_CURRENT_LIST_DIR}/../source/headers)
     set(DOXYGEN_QUIET YES)
-    set(DOXYGEN_PROJECT_NAME ${PROJECT_NAME})
 
     # request to configure the file
     configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT})# @ONLY)
