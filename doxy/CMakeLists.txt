@@ -4,8 +4,9 @@ if (DOXYGEN_FOUND)
     # set input and output files
     set(DOXYGEN_IN ${CMAKE_CURRENT_LIST_DIR}/Doxyfile.in)
     set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
-    set(DOXYGEN_SOURCE ${CMAKE_CURRENT_LIST_DIR}/../library/headers)
+    set(DOXYGEN_SOURCE ${CMAKE_CURRENT_LIST_DIR}/../source/headers)
     set(DOXYGEN_QUIET YES)
+    set(DOXYGEN_PROJECT_NAME ProjectTemplate)
 
     # request to configure the file
     configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT})# @ONLY)

@@ -20,11 +20,11 @@ endif ()
 #=======================================================================================================================
 
 # ===== Target using static library ===== #
-add_executable(OpenXLSXBenchmark-static EXCLUDE_FROM_ALL Benchmark.cpp)
-target_link_libraries(OpenXLSXBenchmark-static PRIVATE benchmark benchmark_main OpenXLSX-static)
-target_compile_definitions(OpenXLSXBenchmark-static PRIVATE OPENXLSX_STATIC_DEFINE)
+add_executable(benchmark-static EXCLUDE_FROM_ALL Benchmark.cpp)
+target_link_libraries(benchmark-static PRIVATE benchmark benchmark_main library-static)
+target_compile_definitions(benchmark-static PRIVATE OPENXLSX_STATIC_DEFINE)
 
 # ===== Target using shared library ===== #
-add_executable(OpenXLSXBenchmark-shared EXCLUDE_FROM_ALL Benchmark.cpp)
-target_link_libraries(OpenXLSXBenchmark-shared PRIVATE benchmark benchmark_main OpenXLSX-shared)
+add_executable(benchmark-shared EXCLUDE_FROM_ALL Benchmark.cpp)
+target_link_libraries(benchmark-shared PRIVATE benchmark benchmark_main library-shared)
 
