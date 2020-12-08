@@ -1,0 +1,10 @@
+# System Files and Directories
+.idea/
+.DS_Store
+
+# Build Directories
+*cmake-build*/
+
+# Visual Studio
+.vs/
+out/
