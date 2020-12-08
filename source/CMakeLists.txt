@@ -59,35 +59,35 @@ set(PROJECT_TEMPLATE_SOURCES
 # STATIC LIBRARY
 #   Define the static library
 #=======================================================================================================================
-add_library(library-static STATIC "")
-target_sources(library-static PRIVATE ${PROJECT_TEMPLATE_SOURCES})
-target_include_directories(library-static
+add_library(${PROJECT_NAME}-library-static STATIC "")
+target_sources(${PROJECT_NAME}-library-static PRIVATE ${PROJECT_TEMPLATE_SOURCES})
+target_include_directories(${PROJECT_NAME}-library-static
         PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/headers>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>)     # For export header
-#target_link_libraries(library-static PRIVATE Zippy PugiXML NoWide)
-target_compile_definitions(library-static PRIVATE OPENXLSX_STATIC_DEFINE)
+#target_link_libraries(${PROJECT_NAME}-library-static PRIVATE Zippy PugiXML NoWide)
+target_compile_definitions(${PROJECT_NAME}-library-static PRIVATE OPENXLSX_STATIC_DEFINE)
 
 #=======================================================================================================================
 # SHARED LIBRARY
 #   Define the shared library
 #=======================================================================================================================
-add_library(library-shared SHARED "")
-target_sources(library-shared PRIVATE ${PROJECT_TEMPLATE_SOURCES})
-target_include_directories(library-shared
+add_library(${PROJECT_NAME}-library-shared SHARED "")
+target_sources(${PROJECT_NAME}-library-shared PRIVATE ${PROJECT_TEMPLATE_SOURCES})
+target_include_directories(${PROJECT_NAME}-library-shared
         PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/headers>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>)     # For export header
-#target_link_libraries(library-shared PRIVATE Zippy PugiXML NoWide)
+#target_link_libraries(${PROJECT_NAME}-library-shared PRIVATE Zippy PugiXML NoWide)
 
 #=======================================================================================================================
 # GENERATE EXPORT HEADER
 #   Generate preprocessor definitions for setting symbol visibility.
 #=======================================================================================================================
 include(GenerateExportHeader)
-generate_export_header(library-shared)
+generate_export_header(${PROJECT_NAME}-library-shared)
         #BASE_NAME openxlsx
         #EXPORT_FILE_NAME OpenXLSX-Exports.hpp
         #EXPORT_MACRO_NAME OPENXLSX_EXPORT
@@ -150,21 +150,21 @@ list(APPEND RELEASE_FLAGS_MSVC
         "/wd4275")
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    target_compile_options(library-shared PRIVATE $<$<CONFIG:Debug>:${DEBUG_FLAGS_GNU}>)
-    target_compile_options(library-static PRIVATE $<$<CONFIG:Debug>:${DEBUG_FLAGS_GNU}>)
+    target_compile_options(${PROJECT_NAME}-library-shared PRIVATE $<$<CONFIG:Debug>:${DEBUG_FLAGS_GNU}>)
+    target_compile_options(${PROJECT_NAME}-library-static PRIVATE $<$<CONFIG:Debug>:${DEBUG_FLAGS_GNU}>)
 
 elseif (("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang") OR
         ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "AppleClang") OR
         ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU"))
-    target_compile_options(library-shared PRIVATE $<$<CONFIG:Debug>:${DEBUG_FLAGS_GNUCLANG}>)
-    target_compile_options(library-static PRIVATE $<$<CONFIG:Debug>:${DEBUG_FLAGS_GNUCLANG}>)
+    target_compile_options(${PROJECT_NAME}-library-shared PRIVATE $<$<CONFIG:Debug>:${DEBUG_FLAGS_GNUCLANG}>)
+    target_compile_options(${PROJECT_NAME}-library-static PRIVATE $<$<CONFIG:Debug>:${DEBUG_FLAGS_GNUCLANG}>)
 
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     string(REGEX REPLACE "/W[3|4]" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-    target_compile_options(library-shared PRIVATE $<$<CONFIG:Debug>:${DEBUG_FLAGS_MSVC}>)
-    target_compile_options(library-static PRIVATE $<$<CONFIG:Debug>:${DEBUG_FLAGS_MSVC}>)
-    target_compile_options(library-shared PRIVATE $<$<CONFIG:Release>:${RELEASE_FLAGS_MSVC}>)
-    target_compile_options(library-static PRIVATE $<$<CONFIG:Release>:${RELEASE_FLAGS_MSVC}>)
+    target_compile_options(${PROJECT_NAME}-library-shared PRIVATE $<$<CONFIG:Debug>:${DEBUG_FLAGS_MSVC}>)
+    target_compile_options(${PROJECT_NAME}-library-static PRIVATE $<$<CONFIG:Debug>:${DEBUG_FLAGS_MSVC}>)
+    target_compile_options(${PROJECT_NAME}-library-shared PRIVATE $<$<CONFIG:Release>:${RELEASE_FLAGS_MSVC}>)
+    target_compile_options(${PROJECT_NAME}-library-static PRIVATE $<$<CONFIG:Release>:${RELEASE_FLAGS_MSVC}>)
 endif ()
 
 #=======================================================================================================================
@@ -174,7 +174,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "Release")
     include(CheckIPOSupported)
     check_ipo_supported(RESULT result OUTPUT output)
     if (result)
-        set_property(TARGET library-shared PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
+        set_property(TARGET ${PROJECT_NAME}-library-shared PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
     endif ()
 endif ()
 
@@ -184,11 +184,11 @@ endif ()
 #=======================================================================================================================
 if (ENABLE_COVERAGE AND CMAKE_BUILD_TYPE STREQUAL "Debug")
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" AND NOT WIN32)
-        target_compile_options(library-shared PRIVATE -fprofile-instr-generate -fcoverage-mapping)
-        target_link_options(library-shared PRIVATE -fprofile-instr-generate)
+        target_compile_options(${PROJECT_NAME}-library-shared PRIVATE -fprofile-instr-generate -fcoverage-mapping)
+        target_link_options(${PROJECT_NAME}-library-shared PRIVATE -fprofile-instr-generate)
     elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-        target_compile_options(library-shared PRIVATE --coverage)
-        target_link_options(library-shared PRIVATE --coverage)
+        target_compile_options(${PROJECT_NAME}-library-shared PRIVATE --coverage)
+        target_link_options(${PROJECT_NAME}-library-shared PRIVATE --coverage)
     endif ()
 endif ()
 

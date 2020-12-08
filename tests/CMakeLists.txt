@@ -16,15 +16,15 @@ target_include_directories(Catch SYSTEM INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/_d
 #=======================================================================================================================
 # Define TEST target
 #=======================================================================================================================
-add_executable(InterfaceTest EXCLUDE_FROM_ALL "")
-target_sources(InterfaceTest
+add_executable(${PROJECT_NAME}-tests EXCLUDE_FROM_ALL "")
+target_sources(${PROJECT_NAME}-tests
                PRIVATE
         Test.cpp
                )
 
-target_link_libraries(InterfaceTest
+target_link_libraries(${PROJECT_NAME}-tests
                       PRIVATE
-                      OpenXLSX-objs
+                        ${PROJECT_NAME}-library-shared
                       Catch
                       )
 
@@ -33,13 +33,13 @@ target_link_libraries(InterfaceTest
 #=======================================================================================================================
 if (ENABLE_COVERAGE AND CMAKE_BUILD_TYPE STREQUAL "Debug")
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" AND NOT WIN32)
-        target_compile_options(InterfaceTest PRIVATE -fprofile-instr-generate -fcoverage-mapping)
-        target_link_options(InterfaceTest PRIVATE -fprofile-instr-generate)
+        target_compile_options(${PROJECT_NAME}-tests PRIVATE -fprofile-instr-generate -fcoverage-mapping)
+        target_link_options(${PROJECT_NAME}-tests PRIVATE -fprofile-instr-generate)
         #Uncomment in case of linker errors
         #link_libraries(clang_rt.profile-x86_64)
     elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-        target_compile_options(InterfaceTest PRIVATE --coverage)
-        target_link_options(InterfaceTest PRIVATE --coverage)
+        target_compile_options(${PROJECT_NAME}-tests PRIVATE --coverage)
+        target_link_options(${PROJECT_NAME}-tests PRIVATE --coverage)
         #Uncomment in case of linker errors
         #link_libraries(gcov)
     endif ()

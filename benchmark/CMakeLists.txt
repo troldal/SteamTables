@@ -20,11 +20,11 @@ endif ()
 #=======================================================================================================================
 
 # ===== Target using static library ===== #
-add_executable(benchmark-static EXCLUDE_FROM_ALL Benchmark.cpp)
-target_link_libraries(benchmark-static PRIVATE benchmark benchmark_main library-static)
-target_compile_definitions(benchmark-static PRIVATE OPENXLSX_STATIC_DEFINE)
+add_executable(${PROJECT_NAME}-benchmark-static EXCLUDE_FROM_ALL Benchmark.cpp)
+target_link_libraries(${PROJECT_NAME}-benchmark-static PRIVATE benchmark benchmark_main ${PROJECT_NAME}-library-static)
+target_compile_definitions(${PROJECT_NAME}-benchmark-static PRIVATE OPENXLSX_STATIC_DEFINE)
 
 # ===== Target using shared library ===== #
-add_executable(benchmark-shared EXCLUDE_FROM_ALL Benchmark.cpp)
-target_link_libraries(benchmark-shared PRIVATE benchmark benchmark_main library-shared)
+add_executable(${PROJECT_NAME}-benchmark-shared EXCLUDE_FROM_ALL Benchmark.cpp)
+target_link_libraries(${PROJECT_NAME}-benchmark-shared PRIVATE benchmark benchmark_main ${PROJECT_NAME}-library-shared)
 
