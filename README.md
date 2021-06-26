@@ -3,7 +3,7 @@ HOLD
 
 ## Table of Contents
 
-- [New in version 0.2.0](#new-in-version-020)
+- [New in version 0.1.0](#new-in-version-010)
 - [Motivation](#motivation)
 - [Compatibility](#compatibility)
 - [Build Instructions](#build-instructions)
@@ -12,7 +12,7 @@ HOLD
 - [Caveats](#caveats)
 - [Example Programs](#example-programs)
 
-## New in version 0.2.0
+## New in version 0.1.0
 HOLD
 
 ## Motivation
@@ -53,5 +53,3 @@ HOLD
 ```
 
 ## Credits
-
-- Thanks to [@zeux](https://github.com/zeux) for providing the awesome PugiXML library.
